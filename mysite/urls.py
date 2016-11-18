@@ -19,5 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     #urls(r'^<link>/$, "<app_name>.views.<function>")
     url(r'^admin/', admin.site.urls),
-    url(r'^posts/', include("posts.urls")),
+    url(r'^posts/', include("posts.urls", namespace='posts')),
 ]
