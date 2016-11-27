@@ -2,25 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>
+        {% block head_title %}
+        My Site in Django 1.10
+        {% endblock head_title %}
+    </title>
+
+    <style>
+        {% block style %}
+
+        {% endblock style %}
+    </style>
 </head>
 <body>
 
+{% include "messages_display.html" %}
+
 <div class="container">
     {% block content %}
-        <h1>{{ title }} is working</h1>
 
-        {% for object in objects_list %}
-
-        <a href='{{ object.get_absolute_url }}'>{{ object.title }}</a> <br/>
-        {{ object.content }}<br/>
-        {{ object.timestamp }}<br/>
-        {{ object.id }}<br/>
-        {{ object.pk }}<br/>
-
-        {% endfor %}
     {% endblock content %}
 </div>
+
 
 </body>
 </html>
