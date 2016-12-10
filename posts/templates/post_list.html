@@ -2,15 +2,27 @@
 
 
 {% block content %}
-<h1>{{ title }} is working</h1>
+<h1>{{ title }}</h1>
 
-{% for object in objects_list %}
+<div class="col-sm-6 col-sm-offset-3">
 
-<a href='{{ object.get_absolute_url }}'>{{ object.title }}</a> <br/>
-{{ object.content }}<br/>
-{{ object.timestamp }}<br/>
-{{ object.id }}<br/>
-{{ object.pk }}<br/>
+    {% for object in objects_list %}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="thumbnail">
+                <!--<img src="..." alt="...">-->
+                    <div class="caption">
+                        <h3><a href='{{ object.get_absolute_url }}'>
+                            {{ object.title }}</a> <small>{{ object.timestamp|timesince }} ago</small>
+                        </h3>
+                        <p>{{ object.content|linebreaks|truncatechars:30 }}</p>
+                        <p><a href="{{ object.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
+                </div>
+            </div>
+          </div>
+          </hr>
+        </div>
+    {% endfor %}
 
-{% endfor %}
+</div>
 {% endblock content %}

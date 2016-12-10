@@ -3,13 +3,13 @@
 
 
 {% block content %}
+<div class="col-sm-6 col-sm-offset-3">
+    <h1>Form</h1>
 
-<h1>Form</h1>
+    <form method="post" action="">{% csrf_token %}
+        {{ form.as_p }}
 
-<form method="post" action="">{% csrf_token %}
-    {{ form.as_p }}
-
-    <input type="submit" value="Create Post" />
-</form>
-
+        <input class="btn btn-default" type="submit" value="Create Post" />
+    </form>
+</div>
 {% endblock content %}
