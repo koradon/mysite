@@ -2,9 +2,15 @@
 
 
 {% block content %}
+
+
+<div class="col-sm-10 col-sm-offset-1">
 <h1>{{ title }}</h1>
 
-<div class="col-sm-6 col-sm-offset-3">
+    <form method="get" action="">
+        <input type="text" name="q" placeholder="Search posts" value="{{ request.GET.search_query }}">
+        <input type="submit" value="Search">
+    </form>
 
     {% for object in objects_list %}
         <div class="row">
@@ -15,8 +21,20 @@
                     {% endif %}
 
                     <div class="caption">
-                        <h3><a href='{{ object.get_absolute_url }}'>
-                            {{ object.title }}</a> <small>{{ object.timestamp|timesince }} ago</small>
+                        <h3>
+                            {% if object.draft %}
+                                <span style="color:red">Draft</span>
+                                {% if object.publish > today %}
+                                    Future Post
+                                {% endif %}
+                            {% endif %}
+                        </h3>
+                        <h3>
+                            <a href='{{ object.get_absolute_url }}'>{{ object.title }}</a>
+                            <small>
+
+                                {{ object.publish|timesince }} ago
+                            </small>
                         </h3>
                         {% if object.user.get_full_name %}
                             <p>Author: {{ object.user.get_full_name }}</p>
@@ -34,7 +52,10 @@
     <div class="pagination">
         <span class="step-links">
             {% if objects_list.has_previous %}
-                <a href="?{{ page_request_var }}={{ objects_list.previous_page_number }}">previous</a>
+                <a href="?{{ page_request_var }}={{ objects_list.previous_page_number }}
+                        {% if request.GET.q %}
+                            &q={{ request.GET.q }}
+                        {% endif %}">previous</a>
             {% endif %}
 
             <span class="current">
@@ -42,7 +63,10 @@
             </span>
 
             {% if object_list.has_next %}
-                <a href="?{{ page_request_var }}={{ object_list.next_page_number }}">next</a>
+                <a href="?{{ page_request_var }}={{ object_list.next_page_number }}
+                        {% if request.GET.q %}
+                            &q={{ request.GET.q }}
+                        {% endif %}">next</a>
             {% endif %}
         </span>
     </div>
