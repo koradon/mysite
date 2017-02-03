@@ -68,7 +68,11 @@
                 var markedContent = marked(content)
                 $(this).html(markedContent)
             })
+            $(".post-detail-item img").each(function(){
+                $(this).addClass("img-responsive");
+            })
         })
+
     </script>
 
 </body>

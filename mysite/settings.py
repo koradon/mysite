@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'markdown_deux',
     'pagedown',
     'posts',
 ]
@@ -131,3 +132,8 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
+
+# markdown-deux params
+MARKDOWN_DEUX_STYLES = {"default": {"extras": {"code-friendly": None, },
+                                    "safe_mode": False, },
+                        }
