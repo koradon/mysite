@@ -71,6 +71,39 @@
             $(".post-detail-item img").each(function(){
                 $(this).addClass("img-responsive");
             })
+
+            // preview-title
+            var titleInput = $("#id_title")
+
+            function setTitle(value){
+                if (value) {
+                    $("#preview-title").text(value);
+                }
+            }
+            setTitle(titleInput.val())
+
+            titleInput.keyup(function(){
+                var newTitle = $(this).val()
+                setTitle(newTitle)
+            })
+
+            // preview-content
+            var contentInput = $("#id_content")
+
+            function setContent(value){
+                if (value) {
+                    $("#preview-content").html(marked(value));
+                    $("#preview-content img").each(function(){
+                        $(this).addClass("img-responsive")
+                    });
+                }
+            }
+            setContent(contentInput.val())
+
+            contentInput.keyup(function(){
+                var newContent = $(this).val()
+                setContent(newContent)
+            })
         })
 
     </script>
