@@ -72,6 +72,7 @@ class Post(models.Model):
         content_type = ContentType.objects.get_for_model(instance.__class__)
         return content_type
 
+
 def create_slug(instance, new_slug=None):
     # "Tesla title 1" -> "tesla-title-1"
     slug = slugify(instance.title)
