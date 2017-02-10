@@ -33,6 +33,9 @@
             <br/>
         </small>
     </h1>
+    {% if instance.read_time %}
+        <p>Read time: {% if instance.read_time <= 1 %} < 1 minute {% else %} {{ instance.read_time }} minutes {% endif %}</p>
+    {% endif %}
     {% if instance.user.get_full_name %}
         <p>Author: {{ instance.user.get_full_name }}</p>
     {% endif %}
