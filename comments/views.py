@@ -9,6 +9,7 @@ from .forms import CommentForm
 # Create your views here.
 def comment_thread(request, id):
     obj = get_object_or_404(Comment, id=id)
+    original_post = obj.content_object.get_absolute_url()
 
     initial_data = {
         "content_type": obj.content_type,
@@ -44,5 +45,6 @@ def comment_thread(request, id):
     context = {
         "comment": obj,
         "form": form,
+        "original_post": original_post,
     }
     return render(request, "comment_thread.html", context)

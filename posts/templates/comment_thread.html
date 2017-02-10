@@ -19,8 +19,12 @@
 
 
 {% block content %}
-{{ comment }}
 <div class="col-sm-10 col-sm-offset-1">
+    <hr/>
+    <a class="btn" href="{{ original_post }}">Back to post</a>
+    <hr/>
+    <br/>
+
         <p>{{ comment.content }}</p>
         <footer>
             by {{ comment.user }} on {{ comment.timestamp }} | {{ comment.timestamp|timesince }} ago |{% if comment.children.count > 0 %}{{ comment.children.count }} Comment{% if comment.children.count > 1 %}s{% endif %} {% endif %}
@@ -41,6 +45,8 @@
                 <input type="submit" value="Reply" class="btn btn-default"> {% csrf_token %}
             </form>
         </div>
+    <hr/>
+    <a href="{{ original_post }}">Back to post</a>
     <hr/>
 </div>
 {% endblock content %}
