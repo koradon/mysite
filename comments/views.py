@@ -39,7 +39,7 @@ def comment_thread(request, id):
                                                              content=content_data,
                                                              parent=parent_obj)
 
-        return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
+        return HttpResponseRedirect(parent_obj.get_absolute_url())
 
     context = {
         "comment": obj,
