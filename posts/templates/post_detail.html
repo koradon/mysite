@@ -80,20 +80,26 @@
                 {% for comment in comments %}
                     <blockquote>
                         <p>{{ comment.content }}</p>
-                        <footer>by {{ comment.user }} on {{ comment.timestamp }} | {{ comment.timestamp|timesince }}</footer>
+                        <footer>
+                            by {{ comment.user }} on {{ comment.timestamp }} | {{ comment.timestamp|timesince }} ago |{% if comment.children.count > 0 %}{{ comment.children.count }} Comment{% if comment.children.count > 1 %}s{% endif %} | {% endif %}
+                            <a class="comment-reply-btn" href="#">Reply</a>
+                        </footer>
 
-                        {% for child_comment in comment.children %}
-                            <blockquote>
-                            <p>{{ child_comment.content }}</p>
-                            <footer>by {{ child_comment.user }} on {{ child_comment.timestamp }} | {{ child_comment.timestamp|timesince }} ago</footer>
-                            </blockquote>
-                        {% endfor %}
+                        <div class="comment-reply">
+                            {% for child_comment in comment.children %}
+                                <blockquote>
+                                    <p>{{ child_comment.content }}</p>
+                                    <footer>by {{ child_comment.user }} on {{ child_comment.timestamp }} | {{ child_comment.timestamp|timesince }} ago</footer>
+                                </blockquote>
+                            {% endfor %}
 
-                        <form method="post" action=".">
-                            {{ comment_form|crispy }}
-                            <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                            <input type="submit" value="Reply" class="btn btn-default"> {% csrf_token %}
-                        </form>
+
+                            <form method="post" action=".">
+                                {{ comment_form|crispy }}
+                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                <input type="submit" value="Reply" class="btn btn-default"> {% csrf_token %}
+                            </form>
+                        </div>
                     </blockquote>
                     <hr/>
                 {% endfor %}
