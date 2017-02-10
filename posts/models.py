@@ -8,6 +8,8 @@ from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from markdown_deux import markdown
 
+from comments.models import Comment
+
 # Create your models here.
 
 
@@ -56,6 +58,12 @@ class Post(models.Model):
         content = self.content
 
         return mark_safe(markdown(content))
+
+    @property
+    def comments(self):
+        instance = self
+        query_set = Comment.objects.filter_by_instance(instance)
+        return query_set
 
 
 def create_slug(instance, new_slug=None):

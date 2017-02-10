@@ -1,6 +1,5 @@
 from urllib.parse import quote_plus
 from django.contrib import messages
-from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
@@ -45,9 +44,7 @@ def post_detail(request, slug=None):
     share_string = quote_plus(instance.content)
 
     # comments
-    content_type = ContentType.objects.get_for_model(Post)
-    obj_id = instance.id
-    comments = Comment.objects.filter(content_type=content_type, object_id=obj_id)
+    comments = instance.comments
 
     context = {
         "title": instance.title,

@@ -71,15 +71,13 @@
 
             <div>
                 <p class="lead">Comments</p>
+                <hr/>
                 {% for comment in comments %}
-                    <div class="">
-                        {{ comment.content }}
-                        <br/>
-                        <small>
-                            by {{ comment.user }} on {{ comment.timestamp }} | {{ comment.timestamp|timesince }}
-                        </small>
-                        <hr/>
-                    </div>
+                    <blockquote>
+                        <p>{{ comment.content }}</p>
+                        <footer>by {{ comment.user }} on {{ comment.timestamp }} | {{ comment.timestamp|timesince }}</footer>
+                    </blockquote>
+                    <hr/>
                 {% endfor %}
             </div>
             <!--<p>-->
