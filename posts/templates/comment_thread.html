@@ -38,12 +38,15 @@
                 </blockquote>
             {% endfor %}
 
-
-            <form method="post" action=".">
-                {{ form|crispy }}
-                <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                <input type="submit" value="Reply" class="btn btn-default"> {% csrf_token %}
-            </form>
+            {% if request.user.is_authenticated %}
+                <form method="post" action=".">
+                    {{ form|crispy }}
+                    <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                    <input type="submit" value="Reply" class="btn btn-default"> {% csrf_token %}
+                </form>
+            {% else %}
+                <p>You must be logged in to comment</p>
+            {% endif %}
         </div>
     <hr/>
     <a href="{{ original_post }}">Back to post</a>
