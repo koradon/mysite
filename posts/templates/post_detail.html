@@ -85,14 +85,14 @@
                         <p>{{ comment.content }}</p>
                         <footer>
                             by {{ comment.user }} on {{ comment.timestamp }} | {{ comment.timestamp|timesince }} ago |{% if comment.children.count > 0 %}{{ comment.children.count }} Comment{% if comment.children.count > 1 %}s{% endif %} | {% endif %}
-                            <a class="comment-reply-btn" href="#">Reply</a> | <a class="" href="{{ comment.get_absolute_url }}">Thread</a>
+                            <a class="comment-reply-btn" href="#">Reply</a> | <a class="" href="{{ comment.get_absolute_url }}">Thread</a> | {% if request.user == comment.user %}<a href="{{ comment.get_delete_url }}">Delete</a>{% endif %}
                         </footer>
 
                         <div class="comment-reply">
                             {% for child_comment in comment.children %}
                                 <blockquote>
                                     <p>{{ child_comment.content }}</p>
-                                    <footer>by {{ child_comment.user }} on {{ child_comment.timestamp }} | {{ child_comment.timestamp|timesince }} ago</footer>
+                                    <footer>by {{ child_comment.user }} on {{ child_comment.timestamp }} | {{ child_comment.timestamp|timesince }} ago | {% if request.user == child_comment.user %}<a href="{{ comment.get_delete_url }}">Delete</a>{% endif %}</footer>
                                 </blockquote>
                             {% endfor %}
 
