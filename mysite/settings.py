@@ -38,10 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my apps
+    # libraries
     'crispy_forms',
     'markdown_deux',
     'pagedown',
+    # django apps
     'posts',
+    'comments',
 ]
 
 MIDDLEWARE = [
