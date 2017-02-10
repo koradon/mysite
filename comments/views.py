@@ -48,3 +48,19 @@ def comment_thread(request, id):
         "original_post": original_post,
     }
     return render(request, "comment_thread.html", context)
+
+
+def comment_delete(request, id):
+    obj = get_object_or_404(Comment, id=id)
+
+    if request.method == POST:
+        parent_object_url = obj.content_object.get_absolute_url()
+        obj.delete()
+        messages.success(request, "Comment deleted")
+        return HttpResponseRedirect(parent_object_url)
+
+    context = {
+        "object": obj,
+    }
+
+    return render(request, "confirm_delete.html", context)
