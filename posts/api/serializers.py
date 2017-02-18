@@ -18,6 +18,7 @@ class PostListSerializer(ModelSerializer):
         model = Post
         fields = [
             'id',
+            'user',
             'title',
             'slug',
             'content',
