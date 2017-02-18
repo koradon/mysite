@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'markdown_deux',
     'pagedown',
+    'rest_framework',
     # django apps
     'posts',
     'comments',

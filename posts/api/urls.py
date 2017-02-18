@@ -1,13 +1,13 @@
 from django.conf.urls import url
 
-from . import views
+from .views import PostCreateAPIView, PostListAPIView, PostDetailAPIView, PostDeleteAPIView, PostUpdateAPIView
 
 
 urlpatterns = [
     #url(r'^$', views.index, name="index"),
-    url(r'^$', views.PostListAPIView.as_view(), name="list"),
-    # url(r'^create/$', views.post_create, name="create"),
-    # url(r'^(?P<slug>[\w-]+)/$', views.post_detail, name="detail"),
-    # url(r'^(?P<slug>[\w-]+)/edit/$', views.post_update, name="update"),
-    # url(r'^(?P<slug>[\w-]+)/delete/$', views.post_delete, name="delete"),
+    url(r'^$', PostListAPIView.as_view(), name="list"),
+    url(r'^create/$', PostCreateAPIView.as_view(), name="create"),
+    url(r'^(?P<slug>[\w-]+)/$', PostDetailAPIView.as_view(), name="detail"),
+    url(r'^(?P<slug>[\w-]+)/edit/$', PostUpdateAPIView.as_view(), name="update"),
+    url(r'^(?P<slug>[\w-]+)/delete/$', PostDeleteAPIView.as_view(), name="delete"),
 ]
