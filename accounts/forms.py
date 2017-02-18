@@ -10,8 +10,8 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
     def clean(self, *args, **kwargs):
-        username = forms.cleaned_data.get("username")
-        password = forms.cleaned_data.get("password")
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
 
         if username and password:
             user = authenticate(username=username, password=password)
