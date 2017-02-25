@@ -9,6 +9,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from .permissions import IsOwnerOrReadOnly
 
 from posts.models import Post
+from .pagination import PostLimitOffsetPagination, PostPageNumberPagination
 from .serializers import PostDetailSerializer, PostListSerializer, PostCreateUpdateSerializer
 
 
@@ -48,14 +49,16 @@ class PostListAPIView(ListAPIView):
     serializer_class = PostListSerializer
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title', 'content', 'user__first_name']
+    pagination_class = PostPageNumberPagination
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Post.objects.all()
         # Query from search bar
         query = self.request.GET.get("q")
         if query:
-            queryset_list = queryset_list.filter(Q(title__icontains=query) |
-                                                 Q(content__icontains=query) |
-                                                 Q(user__first_name__icontains=query) |
-                                                 Q(user__last_name__icontains=query)).distinct()
+            queryset_list = \
+                queryset_list.filter(Q(title__icontains=query) |
+                                     Q(content__icontains=query) |
+                                     Q(user__first_name__icontains=query) |
+                                     Q(user__last_name__icontains=query)).distinct()
         return queryset_list
