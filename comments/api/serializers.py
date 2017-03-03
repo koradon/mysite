@@ -6,6 +6,8 @@ from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField
 
 from comments.models import Comment
 
+from accounts.api.serializers import UserDetailSerializer
+
 
 User = get_user_model()
 
@@ -110,6 +112,7 @@ class CommentListSerializer(ModelSerializer):
 
 
 class CommentChildSerializer(ModelSerializer):
+    user = UserDetailSerializer(read_only=True)
     class Meta:
         model = Comment
         fields = [
@@ -121,6 +124,7 @@ class CommentChildSerializer(ModelSerializer):
 
 
 class CommentDetailSerializer(ModelSerializer):
+    user = UserDetailSerializer(read_only=True)
     replies = SerializerMethodField()
     content_object_url = SerializerMethodField()
     reply_count = SerializerMethodField()
