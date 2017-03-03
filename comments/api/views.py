@@ -11,7 +11,7 @@ from posts.api.pagination import PostLimitOffsetPagination, PostPageNumberPagina
 
 from comments.models import Comment
 
-from .serializers import CommentSerializer
+from .serializers import CommentSerializer, CommentDetailSerializer
 
 
 # class PostCreateAPIView(CreateAPIView):
@@ -25,7 +25,7 @@ from .serializers import CommentSerializer
 
 class CommentDetailAPIView(RetrieveAPIView):
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
+    serializer_class = CommentDetailSerializer
     # lookup_field = 'slug'
 
 
