@@ -1,14 +1,12 @@
 from django.db.models import Q
 
-from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
-from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, UpdateAPIView,\
-    RetrieveAPIView, RetrieveUpdateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, \
-    IsAuthenticatedOrReadOnly
+from rest_framework.mixins import UpdateModelMixin
+from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, RetrieveAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.filters import SearchFilter, OrderingFilter
 
 from posts.api.permissions import IsOwnerOrReadOnly
-from posts.api.pagination import PostLimitOffsetPagination, PostPageNumberPagination
+from posts.api.pagination import PostPageNumberPagination
 
 from comments.models import Comment
 
@@ -34,7 +32,7 @@ class CommentCreateAPIView(CreateAPIView):
 class CommentDetailAPIView(DestroyAPIView, UpdateModelMixin, RetrieveAPIView):
     queryset = Comment.objects.filter(id__gte=0)
     serializer_class = CommentDetailSerializer
-    permission_classes = [IsOwnerOrReadOnly, IsAuthenticatedOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
@@ -45,6 +43,7 @@ class CommentDetailAPIView(DestroyAPIView, UpdateModelMixin, RetrieveAPIView):
 
 class CommentListAPIView(ListAPIView):
     serializer_class = CommentListSerializer
+    permission_classes = [AllowAny]
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['content', 'user__first_name']
     pagination_class = PostPageNumberPagination
