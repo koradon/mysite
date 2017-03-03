@@ -1,5 +1,8 @@
 from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField
 
+from comments.api.serializers import CommentSerializer
+from comments.models import Comment
+
 from posts.models import Post
 
 
@@ -57,6 +60,7 @@ class PostDetailSerializer(ModelSerializer):
     user = SerializerMethodField()
     image = SerializerMethodField()
     html = SerializerMethodField()
+    comments = SerializerMethodField()
 
     class Meta:
         model = Post
@@ -70,7 +74,8 @@ class PostDetailSerializer(ModelSerializer):
             'html',
             'content',
             'publish',
-            'image'
+            'image',
+            'comments',
         ]
 
     def get_html(self, obj):
@@ -86,3 +91,8 @@ class PostDetailSerializer(ModelSerializer):
             image = None
 
         return image
+
+    def get_comments(self, obj):
+        comments_qs = Comment.objects.filter_by_instance(obj)
+        comments = CommentSerializer(comments_qs, many=True).data
+        return comments
