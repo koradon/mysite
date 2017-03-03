@@ -45,8 +45,8 @@ class Comment(models.Model):
     def get_delete_url(self):
         return reverse("comments:delete", kwargs={"id": self.id})
 
-    def children(self): # replies
-        return Comment.objects.filter(parent=self)
+    def children(self):  # replies
+        return Comment.objects.filter(parent=self).order_by('timestamp')
 
     @property
     def is_parent(self):
