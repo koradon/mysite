@@ -47,7 +47,7 @@
                         {% if object.user.get_full_name %}
                             <p>Author: {{ object.user.get_full_name }}</p>
                         {% endif %}
-                        {{ object.get_markdown|truncatewords_html:5 }}
+                        {{ object.get_markdown|truncatewords_html:30 }}
                         <p><a href="{{ object.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
                     </div>
                 </div>
