@@ -8,6 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from markdown_deux import markdown
+from taggit.managers import TaggableManager
 
 from comments.models import Comment
 from .utils import get_read_time
@@ -42,6 +43,7 @@ class Post(models.Model):
     read_time = models.IntegerField(default=0)  # models.TimeField(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    tags = TaggableManager()
 
     objects = PostManager()
 

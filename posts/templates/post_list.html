@@ -20,6 +20,9 @@
         </div>
     </form>
 
+    {% if tag %}
+        <h2>Posts with tag: "{{ tag.name }}"</h2>
+    {% endif %}
     {% for object in objects_list %}
         <div class="row">
             <div class="col-sm-12">

@@ -36,6 +36,17 @@
             <br/>
         </small>
     </h1>
+
+    <p class="tags">
+        Tags:
+        {% for tag in instance.tags.all %}
+            <a href="{% url 'posts:list_by_tags' tag.slug %}">
+                {{ tag.name }}
+            </a>
+            {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+
     {% if instance.read_time %}
         <p>Read time: {% if instance.read_time <= 1 %} < 1 minute {% else %} {{ instance.read_time }} minutes {% endif %}</p>
     {% endif %}

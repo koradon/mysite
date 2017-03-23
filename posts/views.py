@@ -8,6 +8,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from django.core.mail import send_mail
 
+from taggit.models import Tag
+
 from comments.models import Comment
 from comments.forms import CommentForm
 from .forms import PostForm, EmailPostForm
@@ -88,12 +90,18 @@ def post_detail(request, slug=None):
     return render(request, "post_detail.html", context)
 
 
-def post_list(request):
+def post_list(request, tag_slug=None):
+    tag = None
+
     today = timezone.now().date()
 
     queryset_list = Post.objects.active()
     if request.user.is_staff or request.user.is_superuser:
         queryset_list = Post.objects.all()
+
+        if tag_slug:
+            tag = get_object_or_404(Tag, slug=tag_slug)
+            queryset_list = queryset_list.filter(tags__in=[tag])
 
     # Query from search bar
     query = request.GET.get("q")
@@ -120,7 +128,8 @@ def post_list(request):
         "title": "Posts list",
         "objects_list": queryset,
         "page_request_var": page_request_var,
-        "today": today
+        "today": today,
+        "tag": tag,
     }
     return render(request, "post_list.html", context)
 
