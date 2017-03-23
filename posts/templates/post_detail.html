@@ -137,7 +137,39 @@
             <!--<p>-->
                 <!--<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>-->
             <!--</p>-->
+
+
         </div>
+        <div class="similar_posts">
+            <h2>Similar Posts</h2>
+            <div class="row">
+            {% for post in similar_posts %}
+
+                    <div class="col-sm-4">
+                        <div class="thumbnail">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" class="img-responsive" style="height:100px"/>
+                            {% endif %}
+
+                            <div class="caption post-detail-item">
+                                <h4>
+                                    <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
+                                </h4>
+                                {% if post.user.get_full_name %}
+                                    <p>Author: {{ post.user.get_full_name }}</p>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+
+            {% empty %}
+                <p>There are no similar posts. This is the first one!</p>
+            {% endfor %}
+             </div>
+        </div>
+        <br>
+        <hr/>
     </div>
 </div>
 {% endblock content %}

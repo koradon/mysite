@@ -2,6 +2,7 @@ from urllib.parse import quote_plus
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
+from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -80,12 +81,17 @@ def post_detail(request, slug=None):
 
         return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
 
+    post_tags_ids = instance.tags.values_list('id', flat=True)
+    similar_posts = Post.objects.active().filter(tags__in=post_tags_ids).exclude(slug=instance.slug)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by("-same_tags", '-publish')[:4]
+
     context = {
         "title": instance.title,
         "instance": instance,
         "share_string": share_string,
         "comments": comments,
-        "comment_form": form
+        "comment_form": form,
+        "similar_posts": similar_posts,
     }
     return render(request, "post_detail.html", context)
 
