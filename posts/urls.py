@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^(?P<slug>[\w-]+)/$', views.post_detail, name="detail"),
     url(r'^(?P<slug>[\w-]+)/edit/$', views.post_update, name="update"),
     url(r'^(?P<slug>[\w-]+)/delete/$', views.post_delete, name="delete"),
+    url(r'^(?P<slug>[\w-]+)/share/$', views.post_share, name="share"),
 ]

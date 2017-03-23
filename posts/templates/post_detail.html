@@ -70,6 +70,7 @@
                 Linkedin
             </a>
 
+            <a href="{% url 'posts:share' instance.slug %}">Email</a>
             <p>
                 <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
             </p>
@@ -115,8 +116,13 @@
                         </div>
                     </blockquote>
                     <hr/>
+                {% empty %}
+                    <p>There are no comments yet. Be the first one!</p>
+                    <br>
+                    <br>
                 {% endfor %}
             </div>
+            <hr/>
             <!--<p>-->
                 <!--<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>-->
             <!--</p>-->
