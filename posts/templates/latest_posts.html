@@ -1,0 +1,19 @@
+{% for post in latest_posts %}
+    <div class="col-sm-4">
+        <div class="thumbnail">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="img-responsive" style="height:100px"/>
+            {% endif %}
+
+            <div class="caption post-detail-item">
+                <h4>
+                    <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
+                </h4>
+                {% if post.user.get_full_name %}
+                    <p>Author: {{ post.user.get_full_name }}</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endfor %}

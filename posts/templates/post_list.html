@@ -1,11 +1,15 @@
 {% extends "base.html" %}
+{% load posts_tags %}
 
 
 {% block content %}
 
 
 <div class="col-sm-10 col-sm-offset-1">
-<h1>{{ title }}</h1>
+    <h1>{{ title }}</h1>
+    <div class="postscount">
+        <p>My blog has already {% total_posts %} posts</p>
+    </div>
 
     <form method="get" action="" class="row">
         <div class="col-sm-6">
@@ -19,6 +23,9 @@
             </div>
         </div>
     </form>
+
+
+
 
     {% if tag %}
         <h2>Posts with tag: "{{ tag.name }}"</h2>
@@ -70,11 +77,11 @@
             {% endif %}
 
             <span class="current">
-                Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}
+                Page {{ objects_list.number }} of {{ objects_list.paginator.num_pages }}
             </span>
 
-            {% if object_list.has_next %}
-                <a href="?{{ page_request_var }}={{ object_list.next_page_number }}
+            {% if objects_list.has_next %}
+                <a href="?{{ page_request_var }}={{ objects_list.next_page_number }}
                         {% if request.GET.q %}
                             &q={{ request.GET.q }}
                         {% endif %}">next</a>
@@ -82,6 +89,12 @@
         </span>
     </div>
 
+    <div>
+        <hr/>
+        <h3>Latest Posts</h3>
+            {% show_latest_posts 3 %}
+        <hr/>
+    </div>
 
 
 </div>
