@@ -17,14 +17,21 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
+from posts.sitemaps import PostSitemap
 
 from rest_framework_jwt.views import obtain_jwt_token
 
 from accounts.views import login_view, register_view, logout_view
 
+sitemaps = {
+    'posts': PostSitemap
+}
+
 urlpatterns = [
     #urls(r'^<link>/$, "<app_name>.views.<function>")
     url(r'^admin/', admin.site.urls),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^comments/', include("comments.urls", namespace='comments')),
     url(r"^login/", login_view, name='login'),
     url(r"^logout/", logout_view, name='logout'),
