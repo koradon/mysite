@@ -35,6 +35,7 @@ class Post(models.Model):
                               blank=True,
                               width_field="width_field",
                               height_field="height_field")
+    # add some comment
     author2 = models.CharField(max_length=120, null=True)
     height_field = models.IntegerField(default=0)
     width_field = models.IntegerField(default=0)
